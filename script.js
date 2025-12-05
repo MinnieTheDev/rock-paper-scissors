@@ -22,46 +22,57 @@ function getHumanChoice() {
     return humanChoice.toLowerCase();
 }
 
-let humanScore = 0;
-let computerScore = 0;
 
-function playRound(humanChoice, computerChoice) {
-    let humanWins = false;
-    let computerWins = false;
-    // if choice is same = draw
-    if (humanChoice !=  computerChoice) {
-        // human win conditions
-        // human rock, computer scissors
-        if (humanChoice == "rock" && computerChoice == "scissors") {
-            humanWins = true;
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    function playRound(humanChoice, computerChoice) {
+        let humanWins = false;
+        let computerWins = false;
+        // if choice is same = draw
+        if (humanChoice !=  computerChoice) {
+            // human win conditions
+            // human rock, computer scissors
+            if (humanChoice == "rock" && computerChoice == "scissors") {
+                humanWins = true;
+            }
+            // human paper, computer rock
+            else if (humanChoice == "paper" && computerChoice == "rock") {
+                humanWins = true;
+            }
+            // human scissors, computer paper
+            else if (humanChoice == "scissors" && computerChoice == "paper") {
+                humanWins = true;
+            }
+            // else, computer wins
+            else {
+                computerWins = true;
+            }
         }
-        // human paper, computer rock
-        else if (humanChoice == "paper" && computerChoice == "rock") {
-            humanWins = true;
+
+        if (humanWins) {
+            humanScore++;
+            console.log(`You win! ${humanChoice} beats ${computerChoice}`);
         }
-        // human scissors, computer paper
-        else if (humanChoice == "scissors" && computerChoice == "paper") {
-            humanWins = true;
+        else if (computerWins) {
+            computerScore++;
+            console.log(`You lose! ${computerChoice} beats ${humanChoice}`)
         }
-        // else, computer wins
         else {
-            computerWins = true;
+            console.log(`It's a draw, ${humanChoice} does not beat ${computerChoice}.`);
         }
+
+        return(humanScore, computerScore)
     }
 
-    if (humanWins) {
-        humanScore++;
-        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+    for (i = 0; i < 5; i++) {
+        humanSelection = getHumanChoice();
+        computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
     }
-    else if (computerWins) {
-        computerScore++;
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}`)
-    }
-    else {
-        console.log(`It's a draw, ${humanChoice} does not beat ${computerChoice}.`);
-    }
+
+    return `Game Over. Human: ${humanScore}, Computer: ${computerScore}`;
 }
 
-humanSelection = getHumanChoice();
-computerSelection = getComputerChoice();
-playRound(humanSelection, computerSelection);
+console.log(playGame());

@@ -1,6 +1,6 @@
 function getComputerChoice() {
     randomNumber = Math.floor(Math.random() * 100);
-    
+
     let computerChoice;
 
     if (randomNumber <= 33) {
@@ -14,6 +14,12 @@ function getComputerChoice() {
     }
 
     return computerChoice
+}
+
+function getHumanChoice() {
+    let humanChoice = prompt("Your move: ");
+
+    return humanChoice;
 }
 
 getComputerChoice();

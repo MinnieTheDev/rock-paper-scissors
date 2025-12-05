@@ -16,6 +16,7 @@ function getComputerChoice() {
     return computerChoice
 }
 
+
 function getHumanChoice() {
     let humanChoice = prompt("Your move: ");
 
@@ -30,22 +31,16 @@ function playGame() {
     function playRound(humanChoice, computerChoice) {
         let humanWins = false;
         let computerWins = false;
-        // if choice is same = draw
         if (humanChoice !=  computerChoice) {
-            // human win conditions
-            // human rock, computer scissors
             if (humanChoice == "rock" && computerChoice == "scissors") {
                 humanWins = true;
             }
-            // human paper, computer rock
             else if (humanChoice == "paper" && computerChoice == "rock") {
                 humanWins = true;
             }
-            // human scissors, computer paper
             else if (humanChoice == "scissors" && computerChoice == "paper") {
                 humanWins = true;
             }
-            // else, computer wins
             else {
                 computerWins = true;
             }

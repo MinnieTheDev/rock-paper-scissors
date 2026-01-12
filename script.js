@@ -17,20 +17,15 @@ function getComputerChoice() {
 }
 
 
-function getHumanChoice() {
-    let humanChoice = prompt("Your move: ");
-
-    return humanChoice.toLowerCase();
-}
-
-
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
+    const roundResult = document.createElement("p");
 
     function playRound(humanChoice, computerChoice) {
         let humanWins = false;
         let computerWins = false;
+        
         if (humanChoice !=  computerChoice) {
             if (humanChoice == "rock" && computerChoice == "scissors") {
                 humanWins = true;
@@ -48,26 +43,37 @@ function playGame() {
 
         if (humanWins) {
             humanScore++;
-            console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+            roundResult.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
         }
         else if (computerWins) {
             computerScore++;
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}`)
+            roundResult.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
         }
         else {
-            console.log(`It's a draw, ${humanChoice} does not beat ${computerChoice}.`);
+            roundResult.textContent = `It's a draw, ${humanChoice} does not beat ${computerChoice}.`;
         }
 
         return(humanScore, computerScore)
     }
 
-    for (i = 0; i < 5; i++) {
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-    }
+    const buttons = document.querySelectorAll("button");
 
-    return `Game Over. Human: ${humanScore}, Computer: ${computerScore}`;
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            playRound(button.id, getComputerChoice());
+
+            const result = document.querySelector("#result");
+            result.textContent = `Human: ${humanScore}, Computer: ${computerScore}`;
+            result.appendChild(roundResult);
+
+            if (humanScore >= 5 || computerScore >= 5) {
+                const gameResult = document.createElement("p");
+                gameResult.textContent = `${humanScore > computerScore ? "Human" : "Computer"} won!`;
+                result.appendChild(gameResult);
+            }
+
+        })
+    })
 }
 
-console.log(playGame());
+playGame();
